@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package contract;
+option go_package = "im/gen/go;contract";
+
+// Data Transfer Object for User
+message UserDto {
+  int32 id = 1;
+  string username = 2;
+  string email = 3;
+  string firstName = 4;
+  string lastName = 5;
+  bool isActive = 6;
+}
