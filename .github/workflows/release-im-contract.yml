@@ -31,6 +31,9 @@ jobs:
         with:
           go-version: '1.24'
 
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
       - name: Set up buf
         uses: bufbuild/buf-action@v1
         with:
