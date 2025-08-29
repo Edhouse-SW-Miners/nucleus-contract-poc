@@ -20,6 +20,8 @@ env:
   ORG_NAME: Edhouse-SW-Miners
   PROTO_REPO_NAME: nucleus-contract-poc
   TARGET_REPO_NAME: nucleus-im-contract
+  SOURCE_DIR: proto_src
+  TARGET_DIR: target_repo
 
 jobs:
   generate-im-go:
@@ -35,14 +37,14 @@ jobs:
       - name: Checkout '${{ env.PROTO_REPO_NAME }}' repository
         uses: actions/checkout@v4
         with:
-          path: ${{ env.PROTO_REPO_NAME }}
+          path: ${{ env.SOURCE_DIR }}
 
       - name: Checkout target repo '${{ env.ORG_NAME }}/${{ env.TARGET_REPO_NAME }}'
         uses: actions/checkout@v4
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ env.ORG_NAME }}/${{ env.TARGET_REPO_NAME }}
-          path: ${{ env.TARGET_REPO_NAME }}
+          path: ${{ env.TARGET_DIR }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -58,11 +60,11 @@ jobs:
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.8
 
       - name: Generate stubs
-        working-directory: ${{ env.PROTO_REPO_NAME }}/im
+        working-directory: ${{ env.SOURCE_DIR }}/im
         run: buf generate --template ../buf.gen.yaml
 
       - name: Initialize or update Go module
-        working-directory: ${{ env.PROTO_REPO_NAME }}/im/gen/go
+        working-directory: ${{ env.SOURCE_DIR }}/im/gen/go
         run: |
           if [ ! -f go.mod ]; then
             go mod init github.com/${{ env.ORG_NAME }}/${{ env.TARGET_REPO_NAME }}/go
@@ -71,20 +73,20 @@ jobs:
 
       - name: Copy generated stubs to target repo
         run: |
-          rsync -av --delete ${{ env.PROTO_REPO_NAME }}/im/gen/go/ ${{ env.TARGET_REPO_NAME }}/go/
+          rsync -av --delete ${{ env.SOURCE_DIR }}/im/gen/go/ ${{ env.TARGET_DIR }}/go/
 
       - name: Format Go files
-        working-directory: ${{ env.TARGET_REPO_NAME }}/go
+        working-directory: ${{ env.TARGET_DIR }}/go
         run: go fmt ./...
 
       - name: Configure git
-        working-directory: ${{ env.TARGET_REPO_NAME }}
+        working-directory: ${{ env.TARGET_DIR }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit changes
-        working-directory: ${{ env.TARGET_REPO_NAME }}
+        working-directory: ${{ env.TARGET_DIR }}
         run: |
           git add .
           if git diff --cached --quiet; then
@@ -94,5 +96,5 @@ jobs:
           fi
 
       - name: Push changes
-        working-directory: ${{ env.TARGET_REPO_NAME }}
+        working-directory: ${{ env.TARGET_DIR }}
         run: git push origin main
