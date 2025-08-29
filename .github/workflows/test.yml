@@ -13,6 +13,8 @@ jobs:
         with:
           app-id: ${{ vars.EDBOTAPP_ID }}
           private-key: ${{ secrets.EDBOTAPP_KEY }}
+          owner: Edhouse-SW-Miners
+          repositories: nucleus-im-contract
 
       - name: Test API access
         env:
