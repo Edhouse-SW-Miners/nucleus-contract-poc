@@ -8,4 +8,5 @@ message CustomerDto {
   int32 id = 1;
   string customerName = 2;
   string customerCity = 3;
+  bool isActive = 4;
 }
