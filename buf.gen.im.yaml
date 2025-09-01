@@ -5,5 +5,5 @@ managed:
 
 plugins:
   - plugin: go
-    out: im
+    out: im/models
     opt: paths=source_relative

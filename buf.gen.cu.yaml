@@ -5,5 +5,5 @@ managed:
 
 plugins:
   - plugin: go
-    out: cu
+    out: cu/models
     paths: customer.proto
