@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package contract;
-option go_package = "cu/gen/go;contract";
+package models;
+option go_package = "cu/gen/go;models";
 
 // Data Transfer Object for Customer
 message CustomerDto {
