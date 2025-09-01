@@ -1,4 +1,4 @@
-module github.com/Edhouse-SW-Miners/nucleus-contract-poc/im/v2
+module github.com/Edhouse-SW-Miners/nucleus-contract-poc/im/v3
 
 go 1.24.6
 
