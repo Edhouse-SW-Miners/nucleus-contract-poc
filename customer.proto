@@ -6,5 +6,5 @@ option go_package = "cu/gen/go;contract";
 // Data Transfer Object for Customer
 message CustomerDto {
   int32 id = 1;
-  string username = 2;
+  string customerName = 2;
 }

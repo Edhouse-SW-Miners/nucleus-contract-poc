@@ -6,4 +6,4 @@ managed:
 plugins:
   - plugin: go
     out: cu/models
-    paths: customer.proto
+    opt: paths=source_relative
