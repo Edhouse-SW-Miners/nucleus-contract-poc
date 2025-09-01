@@ -19,9 +19,6 @@ permissions:
 jobs:
   generate-im-go:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: im
     steps:
       - name: Checkout 'nucleus-contract' repository
         uses: actions/checkout@v4
@@ -77,10 +74,10 @@ jobs:
           fi
 
       - name: Generate stubs
-        working-directory: .
         run: buf generate user.proto --template buf.gen.im.yaml
 
       - name: Initialize or update Go module
+        working-directory: im
         run: |
           if [ ! -f go.mod ]; then
             go mod init github.com/${{ github.repository }}/im
