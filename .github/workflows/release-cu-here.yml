@@ -103,7 +103,7 @@ jobs:
             echo "No changes to commit"
             echo "committed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Release IM contract version ${{ steps.createVersion.outputs.new_version }}"
+            git commit -m "Release '${{ env.MODULE_SUBDIR_NAME }}' contract version ${{ steps.createVersion.outputs.new_version }}"
             echo "committed=true" >> $GITHUB_OUTPUT
           fi
 
@@ -119,5 +119,5 @@ jobs:
           COMMIT_SHA=$(git rev-parse HEAD)
           gh release create "${{ steps.createVersion.outputs.new_version }}" \
             --title "${{ steps.createVersion.outputs.new_version }}" \
-            --notes "Release of data contract for Identity Management service." \
+            --notes "Release of data contract for Customer service." \
             --target "$COMMIT_SHA"
