@@ -26,6 +26,7 @@ type CustomerDto struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	CustomerName  string                 `protobuf:"bytes,2,opt,name=customerName,proto3" json:"customerName,omitempty"`
+	CustomerCity  string                 `protobuf:"bytes,3,opt,name=customerCity,proto3" json:"customerCity,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -74,14 +75,22 @@ func (x *CustomerDto) GetCustomerName() string {
 	return ""
 }
 
+func (x *CustomerDto) GetCustomerCity() string {
+	if x != nil {
+		return x.CustomerCity
+	}
+	return ""
+}
+
 var File_customer_proto protoreflect.FileDescriptor
 
 const file_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x0ecustomer.proto\x12\x06models\"A\n" +
+	"\x0ecustomer.proto\x12\x06models\"e\n" +
 	"\vCustomerDto\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
-	"\fcustomerName\x18\x02 \x01(\tR\fcustomerNameBe\n" +
+	"\fcustomerName\x18\x02 \x01(\tR\fcustomerName\x12\"\n" +
+	"\fcustomerCity\x18\x03 \x01(\tR\fcustomerCityBe\n" +
 	"\n" +
 	"com.modelsB\rCustomerProtoP\x01Z\x10cu/gen/go;models\xa2\x02\x03MXX\xaa\x02\x06Models\xca\x02\x06Models\xe2\x02\x12Models\\GPBMetadata\xea\x02\x06Modelsb\x06proto3"
 
