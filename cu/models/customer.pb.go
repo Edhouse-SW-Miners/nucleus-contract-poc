@@ -27,6 +27,7 @@ type CustomerDto struct {
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	CustomerName  string                 `protobuf:"bytes,2,opt,name=customerName,proto3" json:"customerName,omitempty"`
 	CustomerCity  string                 `protobuf:"bytes,3,opt,name=customerCity,proto3" json:"customerCity,omitempty"`
+	IsActive      bool                   `protobuf:"varint,4,opt,name=isActive,proto3" json:"isActive,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -82,15 +83,23 @@ func (x *CustomerDto) GetCustomerCity() string {
 	return ""
 }
 
+func (x *CustomerDto) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
+	}
+	return false
+}
+
 var File_customer_proto protoreflect.FileDescriptor
 
 const file_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x0ecustomer.proto\x12\x06models\"e\n" +
+	"\x0ecustomer.proto\x12\x06models\"\x81\x01\n" +
 	"\vCustomerDto\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\fcustomerName\x18\x02 \x01(\tR\fcustomerName\x12\"\n" +
-	"\fcustomerCity\x18\x03 \x01(\tR\fcustomerCityBe\n" +
+	"\fcustomerCity\x18\x03 \x01(\tR\fcustomerCity\x12\x1a\n" +
+	"\bisActive\x18\x04 \x01(\bR\bisActiveBe\n" +
 	"\n" +
 	"com.modelsB\rCustomerProtoP\x01Z\x10cu/gen/go;models\xa2\x02\x03MXX\xaa\x02\x06Models\xca\x02\x06Models\xe2\x02\x12Models\\GPBMetadata\xea\x02\x06Modelsb\x06proto3"
 
