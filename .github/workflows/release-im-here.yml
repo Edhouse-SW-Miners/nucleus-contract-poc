@@ -116,7 +116,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          COMMIT_SHA=$(git rev-parse HEAD)
           gh release create "${{ steps.createVersion.outputs.new_version }}" \
             --title "${{ steps.createVersion.outputs.new_version }}" \
             --notes "Release of data contract for Identity Management service." \
-            --target ${{ github.sha }}
+            --target "$COMMIT_SHA"
