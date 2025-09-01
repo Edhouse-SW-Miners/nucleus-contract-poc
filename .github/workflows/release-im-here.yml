@@ -67,7 +67,7 @@ jobs:
           NEW_VERSION="im/v$major.$minor.$patch"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-          if [ "$major" -gt 1 ]; then
+          if [ "$major" -ge 2 ]; then
             echo "major_version_suffix=/v$major" >> $GITHUB_OUTPUT
           else
             echo "major_version_suffix=" >> $GITHUB_OUTPUT
@@ -93,18 +93,23 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit changes
+        id: commit
         run: |
           git add .
           if git diff --cached --quiet; then
             echo "No changes to commit"
+            echo "committed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Release IM contract version ${{ steps.createVersion.outputs.new_version }}"
+            echo "committed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Push changes
+        if: steps.commit.outputs.committed == 'true'
         run: git push origin ${{ github.event.repository.default_branch }}
 
       - name: Create release
+        if: steps.commit.outputs.committed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
