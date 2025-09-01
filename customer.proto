@@ -7,4 +7,5 @@ option go_package = "cu/gen/go;models";
 message CustomerDto {
   int32 id = 1;
   string customerName = 2;
+  string customerCity = 3;
 }
