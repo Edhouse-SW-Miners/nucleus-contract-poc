@@ -11,4 +11,5 @@ message UserDto {
   string firstName = 4;
   string lastName = 5;
   bool isActive = 6;
+  string myNewField = 7;
 }
