@@ -107,6 +107,7 @@ jobs:
       - name: Create release
         uses: actions/create-release@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ steps.createVersion.outputs.new_version }}
           release_name: Release ${{ steps.createVersion.outputs.new_version }}
           body: |
