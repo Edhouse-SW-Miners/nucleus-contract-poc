@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: customer.proto
 
-package contract
+package models
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -78,11 +78,12 @@ var File_customer_proto protoreflect.FileDescriptor
 
 const file_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x0ecustomer.proto\x12\bcontract\"A\n" +
+	"\x0ecustomer.proto\x12\x06models\"A\n" +
 	"\vCustomerDto\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
-	"\fcustomerName\x18\x02 \x01(\tR\fcustomerNameBq\n" +
-	"\fcom.contractB\rCustomerProtoP\x01Z\x12cu/gen/go;contract\xa2\x02\x03CXX\xaa\x02\bContract\xca\x02\bContract\xe2\x02\x14Contract\\GPBMetadata\xea\x02\bContractb\x06proto3"
+	"\fcustomerName\x18\x02 \x01(\tR\fcustomerNameBe\n" +
+	"\n" +
+	"com.modelsB\rCustomerProtoP\x01Z\x10cu/gen/go;models\xa2\x02\x03MXX\xaa\x02\x06Models\xca\x02\x06Models\xe2\x02\x12Models\\GPBMetadata\xea\x02\x06Modelsb\x06proto3"
 
 var (
 	file_customer_proto_rawDescOnce sync.Once
@@ -98,7 +99,7 @@ func file_customer_proto_rawDescGZIP() []byte {
 
 var file_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_customer_proto_goTypes = []any{
-	(*CustomerDto)(nil), // 0: contract.CustomerDto
+	(*CustomerDto)(nil), // 0: models.CustomerDto
 }
 var file_customer_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
