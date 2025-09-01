@@ -1,0 +1,9 @@
+version: v1
+
+managed:
+  enabled: true
+
+plugins:
+  - plugin: go
+    out: cu
+    paths: customer.proto

@@ -1,4 +1,4 @@
-name: Release IM contract
+name: Release IM contract (elsewhere)
 
 on:
   workflow_dispatch:
