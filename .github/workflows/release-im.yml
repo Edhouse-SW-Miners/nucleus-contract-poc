@@ -1,4 +1,4 @@
-name: Release CUSTOMER contract (here)
+name: Release IM contract
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 env:
-  MODULE_SUBDIR_NAME: cu
+  MODULE_SUBDIR_NAME: im
 
 jobs:
   generate-data-contract:
@@ -77,7 +77,9 @@ jobs:
           fi
 
       - name: Generate stubs
-        run: buf generate --template buf.gen.${{ env.MODULE_SUBDIR_NAME }}.yaml
+        run: |
+          buf dep update
+          buf generate --template buf.gen.${{ env.MODULE_SUBDIR_NAME }}.yaml
 
       - name: Initialize or update Go module
         working-directory: ${{ env.MODULE_SUBDIR_NAME }}
@@ -98,7 +100,7 @@ jobs:
       - name: Commit changes
         id: commit
         run: |
-          git add .
+          git add ${{ env.MODULE_SUBDIR_NAME }}
           if git diff --cached --quiet; then
             echo "No changes to commit"
             echo "committed=false" >> $GITHUB_OUTPUT
@@ -119,5 +121,5 @@ jobs:
           COMMIT_SHA=$(git rev-parse HEAD)
           gh release create "${{ steps.createVersion.outputs.new_version }}" \
             --title "${{ steps.createVersion.outputs.new_version }}" \
-            --notes "Release of data contract for Customer service." \
+            --notes "Release of data contract for Identity Management service." \
             --target "$COMMIT_SHA"
