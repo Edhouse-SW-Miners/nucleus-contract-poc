@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package models;
-option go_package = "cu/gen/go;models";
 
 // Data Transfer Object for Customer
 message CustomerDto {

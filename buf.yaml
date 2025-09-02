@@ -1,1 +1,18 @@
-version: v1
+version: v2
+modules:
+  - path: im-proto
+  - path: cu-proto
+
+deps:
+  - buf.build/bufbuild/protovalidate:v0.14.1
+  
+lint:
+  except:
+    - FIELD_NOT_REQUIRED
+    - PACKAGE_NO_IMPORT_CYCLE
+  disallow_comment_ignores: true
+
+breaking:
+  except:
+    - EXTENSION_NO_DELETE
+    - FIELD_SAME_DEFAULT

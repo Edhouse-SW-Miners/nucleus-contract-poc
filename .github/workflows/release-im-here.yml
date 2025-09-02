@@ -77,7 +77,7 @@ jobs:
           fi
 
       - name: Generate stubs
-        run: buf generate user.proto --template buf.gen.im.yaml
+        run: buf generate --template buf.gen.${{ env.MODULE_SUBDIR_NAME }}.yaml
 
       - name: Initialize or update Go module
         working-directory: ${{ env.MODULE_SUBDIR_NAME }}

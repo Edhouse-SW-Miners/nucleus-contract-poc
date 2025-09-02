@@ -1,9 +1,16 @@
-version: v1
+version: v2
+
+clean: true
 
 managed:
   enabled: true
+  override:
+    - file_option: go_package
+      value: ./models
 
 plugins:
-  - plugin: go
-    out: cu/models
-    opt: paths=source_relative
+  - local: protoc-gen-go
+    out: cu
+
+inputs:
+  - directory: cu-proto

@@ -1,9 +1,19 @@
-version: v1
+version: v2
+
+clean: true
 
 managed:
   enabled: true
+  override:
+    - file_option: go_package
+      value: ./models
+  disable:
+    - file_option: go_package
+      module: buf.build/bufbuild/protovalidate
 
 plugins:
-  - plugin: go
-    out: im/models
-    opt: paths=source_relative
+  - local: protoc-gen-go
+    out: im
+
+inputs:
+  - directory: im-proto
