@@ -11,6 +11,7 @@ message UserDto {
   string email = 3 [(buf.validate.field).string.email = true];
   string firstName = 4;
   string lastName = 5;
-  bool isActive = 6;
-  string newField = 7;
+  string middleName = 6;
+  bool isActive = 7;
+  string newField = 8;
 }

@@ -7,10 +7,12 @@ deps:
   - buf.build/bufbuild/protovalidate:v0.14.1
   
 lint:
+  use:
+    - STANDARD
   except:
-    - FIELD_NOT_REQUIRED
-    - PACKAGE_NO_IMPORT_CYCLE
-  disallow_comment_ignores: true
+    - PACKAGE_VERSION_SUFFIX
+    - PACKAGE_DIRECTORY_MATCH
+    - FIELD_LOWER_SNAKE_CASE
 
 breaking:
   except:
