@@ -1,0 +1,26 @@
+name: Lint proto on non-default branches
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  lint-proto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Set up buf
+        uses: bufbuild/buf-action@v1
+        with:
+          setup_only: true
+
+      - name: Run buf lint
+        run: buf lint
