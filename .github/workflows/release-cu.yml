@@ -23,6 +23,13 @@ jobs:
   generate-data-contract:
     runs-on: ubuntu-latest
     steps:
+      - name: Check default branch
+        run: |
+          if [ "${{ github.ref_name }}" != "${{ github.event.repository.default_branch }}" ]; then
+            echo "⚠️ This workflow can only be run on the default branch (${{ github.event.repository.default_branch }})."
+            exit 1
+          fi
+
       - name: Checkout 'nucleus-contract' repository
         uses: actions/checkout@v4
 
@@ -111,7 +118,7 @@ jobs:
         run: |
           git add ${{ env.MODULE_SUBDIR_NAME }}
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "⚠️ No changes to commit"
             echo "committed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Release '${{ env.MODULE_SUBDIR_NAME }}' contract version ${{ steps.createVersion.outputs.new_version }}"
