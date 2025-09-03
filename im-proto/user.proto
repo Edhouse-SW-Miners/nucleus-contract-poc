@@ -5,12 +5,11 @@ package models;
 import "buf/validate/validate.proto";
 
 // Data Transfer Object for User
-message userDto {
+message UserDto {
   int32 id = 1;
   string username = 2;
   string email = 3 [(buf.validate.field).string.email = true];
   string firstName = 4;
   string lastName = 5;
   bool isActive = 6;
-  string newField = 7;
 }
