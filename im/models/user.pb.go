@@ -32,7 +32,6 @@ type UserDto struct {
 	LastName      string                 `protobuf:"bytes,5,opt,name=lastName,proto3" json:"lastName,omitempty"`
 	MiddleName    string                 `protobuf:"bytes,6,opt,name=middleName,proto3" json:"middleName,omitempty"`
 	IsActive      bool                   `protobuf:"varint,7,opt,name=isActive,proto3" json:"isActive,omitempty"`
-	NewField      string                 `protobuf:"bytes,8,opt,name=newField,proto3" json:"newField,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -116,19 +115,12 @@ func (x *UserDto) GetIsActive() bool {
 	return false
 }
 
-func (x *UserDto) GetNewField() string {
-	if x != nil {
-		return x.NewField
-	}
-	return ""
-}
-
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"user.proto\x12\x06models\x1a\x1bbuf/validate/validate.proto\"\xe6\x01\n" +
+	"user.proto\x12\x06models\x1a\x1bbuf/validate/validate.proto\"\xca\x01\n" +
 	"\aUserDto\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1d\n" +
@@ -138,8 +130,7 @@ const file_user_proto_rawDesc = "" +
 	"\n" +
 	"middleName\x18\x06 \x01(\tR\n" +
 	"middleName\x12\x1a\n" +
-	"\bisActive\x18\a \x01(\bR\bisActive\x12\x1a\n" +
-	"\bnewField\x18\b \x01(\tR\bnewFieldBY\n" +
+	"\bisActive\x18\a \x01(\bR\bisActiveBY\n" +
 	"\n" +
 	"com.modelsB\tUserProtoP\x01Z\b./models\xa2\x02\x03MXX\xaa\x02\x06Models\xca\x02\x06Models\xe2\x02\x12Models\\GPBMetadata\xea\x02\x06Modelsb\x06proto3"
 
