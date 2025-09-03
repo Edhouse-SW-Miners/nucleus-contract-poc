@@ -45,6 +45,7 @@ jobs:
           git fetch --tags
           LATEST_TAG=$(git tag --list '${{ env.MODULE_SUBDIR_NAME }}/v*' --sort=-v:refname | head -n 1)
           echo "Latest tag: $LATEST_TAG"
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           VERSION=${LATEST_TAG#${{ env.MODULE_SUBDIR_NAME }}/v}
           if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             major=0
@@ -74,6 +75,14 @@ jobs:
             echo "major_version_suffix=/v$major" >> $GITHUB_OUTPUT
           else
             echo "major_version_suffix=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check breaking changes
+        if: inputs.versionType != 'major'
+        run: |
+          if ! buf breaking ${{ env.MODULE_SUBDIR_NAME }}-proto --against ".git#tag=${{ steps.createVersion.outputs.latest_tag }},subdir=${{ env.MODULE_SUBDIR_NAME }}-proto"; then
+            echo "⚠️ Breaking changes detected in '${{ env.MODULE_SUBDIR_NAME }}-proto'. Only a 'major' version can be released."
+            exit 1
           fi
 
       - name: Generate stubs

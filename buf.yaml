@@ -15,6 +15,5 @@ lint:
     - FIELD_LOWER_SNAKE_CASE
 
 breaking:
-  except:
-    - EXTENSION_NO_DELETE
-    - FIELD_SAME_DEFAULT
+  use:
+    - FILE
