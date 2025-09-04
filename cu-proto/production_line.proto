@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package models;
+
+import "buf/validate/validate.proto";
+
+// Basic information of a production line
+message ProductionLineBasicInfo {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string name = 2;
+}
+
+// Production line with complete information
+message ProductionLine {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string name = 2;
+  Industry industry = 3 [(buf.validate.field).enum.defined_only = true];
+  Segment segment = 4 [(buf.validate.field).enum.defined_only = true];
+  string plantID = 5;
+  string tenantID = 6;
+}
+
+// Request for creating or updating a production line
+message ProductionLineCreateRequest {
+  string name = 1;
+  Industry industry = 2 [(buf.validate.field).enum.defined_only = true];
+  Segment segment = 3 [(buf.validate.field).enum.defined_only = true];
+
+  option (buf.validate.message).cel = {
+    id: "industry.allowed.segments"
+    message: "unsupported combination of industry and segment"
+    expression:
+      "(this.industry == 1) ? (this.segment >= 2 && this.segment <= 3) :"
+      "(this.industry == 2) ? (this.segment >= 1 && this.segment <= 3) :"
+      "(this.industry == 3) ? (this.segment >= 1 && this.segment <= 6) :"
+      "(this.industry == 4) ? (this.segment >= 3 && this.segment <= 6) :"
+      "(this.industry == 5) ? (this.segment == 3 || this.segment == 5) :"
+      "(this.industry == 6) ? (this.segment >= 3 && this.segment <= 5) :"
+      "true"
+  };
+}
+
+// Possible industry values
+enum Industry {
+  INDUSTRY_UNSPECIFIED = 0;
+  INDUSTRY_FLOAT = 1;
+  INDUSTRY_PATTERNED = 2;
+  INDUSTRY_CONTAINER = 3;
+  INDUSTRY_COMPOSITE = 4;
+  INDUSTRY_INSULATION = 5;
+  INDUSTRY_BOROSILICATE = 6;
+}
+
+// Possible segment values
+enum Segment {
+  SEGMENT_UNSPECIFIED = 0;
+  SEGMENT_ENDPORT = 1;
+  SEGMENT_CROSSFIRED = 2;
+  SEGMENT_OXYGEN = 3;
+  SEGMENT_HYBRID = 4;
+  SEGMENT_ALL_ELECTRIC = 5;
+  SEGMENT_RECUPERATIVE = 6;
+}
