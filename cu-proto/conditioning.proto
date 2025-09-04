@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package models;
+
+import "buf/validate/validate.proto";
+
+// Conditioning process configuration
+message Conditioning {
+  DistributorHeating distributor_heating = 1 [(buf.validate.field).enum.defined_only = true];
+  int32 forehearth_count = 2;
+  ForehearthHeating forehearth_heating = 3 [(buf.validate.field).enum.defined_only = true];
+  int32 forehearth_surface_area = 4;
+  int32 tin_bath_count = 5;
+  WorkingEndHeating working_end_heating = 6 [(buf.validate.field).enum.defined_only = true];
+  bool waist_stirrers = 7;
+}
+
+// Distributor heating enumeration
+enum DistributorHeating {
+  DISTRIBUTOR_HEATING_UNSPECIFIED = 0;
+  DISTRIBUTOR_HEATING_COMBUSTION = 1;
+  DISTRIBUTOR_HEATING_ELECTRIC = 2;
+  DISTRIBUTOR_HEATING_COMBUSTION_AND_ELECTRIC = 3;
+}
+
+// Forehearth heating enumeration
+enum ForehearthHeating {
+  FOREHEARTH_HEATING_UNSPECIFIED = 0;
+  FOREHEARTH_HEATING_COMBUSTION = 1;
+  FOREHEARTH_HEATING_ELECTRIC = 2;
+  FOREHEARTH_HEATING_GAS_AIR = 3;
+  FOREHEARTH_HEATING_OXYGEN = 4;
+}
+
+// Working end heating enumeration
+enum WorkingEndHeating {
+  WORKING_END_HEATING_UNSPECIFIED = 0;
+  WORKING_END_HEATING_AIR = 1;
+  WORKING_END_HEATING_COMBUSTION = 2;
+  WORKING_END_HEATING_WATER = 3;
+}
