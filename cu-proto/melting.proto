@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package models;
+
+import "buf/validate/validate.proto";
+
+// Melting process configuration
+message Melting {
+  MelterType type = 1;
+  int32 depth = 2;
+  int32 surface_area = 3;
+  Intensification intensification = 4 [(buf.validate.field).enum.defined_only = true];
+  CombustionType combustion_type = 5 [(buf.validate.field).enum.defined_only = true];
+  int32 combustion_count = 6;
+  int32 port_injectors = 7;
+  PortPosition port_position = 8 [(buf.validate.field).enum.defined_only = true];
+  int32 recuperators_count = 9;
+  int32 regenerators_count = 10;
+  RegeneratorsPosition regenerators_position = 11 [(buf.validate.field).enum.defined_only = true];
+  int32 regenerators_sections = 12;
+}
+
+// Melter type enumeration
+enum MelterType {
+  MELTER_TYPE_UNSPECIFIED = 0;
+  MELTER_TYPE_FLAT_BOTTOM = 1;
+  MELTER_TYPE_FLAT_BOTTOM_WITH_BARRIER = 2;
+  MELTER_TYPE_STEP_BOTTOM = 3;
+  MELTER_TYPE_DEEP_REFINER = 4;
+  MELTER_TYPE_RECTANGULAR = 5;
+  MELTER_TYPE_CYLINDER_OR_OCTAGON = 6;
+  MELTER_TYPE_TWO_CHAMBERS = 7;
+}
+
+// Intensification enumeration
+enum Intensification {
+  INTENSIFICATION_UNSPECIFIED = 0;
+  INTENSIFICATION_NO_BOOST = 1;
+  INTENSIFICATION_BOOST = 2;
+  INTENSIFICATION_BUBBLING = 3;
+  INTENSIFICATION_BOTTOM_ELECTRODE = 4;
+  INTENSIFICATION_SIDE_ELECTRODE = 5;
+  INTENSIFICATION_TOP_ELECTRODE = 6;
+}
+
+// Combustion type enumeration
+enum CombustionType {
+  COMBUSTION_TYPE_UNSPECIFIED = 0;
+  COMBUSTION_TYPE_NONE = 1;
+  COMBUSTION_TYPE_PORTS = 2;
+  COMBUSTION_TYPE_OXY_BURNERS = 3;
+  COMBUSTION_TYPE_HOT_AIR_BURNERS = 4;
+}
+
+// Port position enumeration
+enum PortPosition {
+  PORT_POSITION_UNSPECIFIED = 0;
+  PORT_POSITION_UNDERPORT = 1;
+  PORT_POSITION_SIDEPORT = 2;
+}
+
+// Regenerators position enumeration
+enum RegeneratorsPosition {
+  REGENERATORS_POSITION_UNSPECIFIED = 0;
+  REGENERATORS_POSITION_IN_BACK = 1;
+  REGENERATORS_POSITION_LEFT_AND_RIGHT = 2;
+}

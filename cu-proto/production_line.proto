@@ -3,6 +3,8 @@ syntax = "proto3";
 package models;
 
 import "buf/validate/validate.proto";
+import "conditioning.proto";
+import "melting.proto";
 
 // Basic information of a production line
 message ProductionLineBasicInfo {
@@ -14,17 +16,21 @@ message ProductionLineBasicInfo {
 message ProductionLine {
   string id = 1 [(buf.validate.field).string.uuid = true];
   string name = 2;
-  Industry industry = 3 [(buf.validate.field).enum.defined_only = true];
+  IndustryType industry = 3 [(buf.validate.field).enum.defined_only = true];
   Segment segment = 4 [(buf.validate.field).enum.defined_only = true];
-  string plantID = 5;
-  string tenantID = 6;
+  Melting melting = 5;
+  Conditioning conditioning = 6;
+  string plantID = 7 [(buf.validate.field).string.uuid = true];
+  string tenantID = 8 [(buf.validate.field).string.uuid = true];
 }
 
 // Request for creating or updating a production line
 message ProductionLineCreateRequest {
   string name = 1;
-  Industry industry = 2 [(buf.validate.field).enum.defined_only = true];
+  IndustryType industry = 2 [(buf.validate.field).enum.defined_only = true];
   Segment segment = 3 [(buf.validate.field).enum.defined_only = true];
+  Melting melting = 4;
+  Conditioning conditioning = 5;
 
   option (buf.validate.message).cel = {
     id: "industry.allowed.segments"
@@ -40,18 +46,18 @@ message ProductionLineCreateRequest {
   };
 }
 
-// Possible industry values
-enum Industry {
-  INDUSTRY_UNSPECIFIED = 0;
-  INDUSTRY_FLOAT = 1;
-  INDUSTRY_PATTERNED = 2;
-  INDUSTRY_CONTAINER = 3;
-  INDUSTRY_COMPOSITE = 4;
-  INDUSTRY_INSULATION = 5;
-  INDUSTRY_BOROSILICATE = 6;
+// Industry type enumeration
+enum IndustryType {
+  INDUSTRY_TYPE_UNSPECIFIED = 0;
+  INDUSTRY_TYPE_FLOAT = 1;
+  INDUSTRY_TYPE_PATTERNED = 2;
+  INDUSTRY_TYPE_CONTAINER = 3;
+  INDUSTRY_TYPE_COMPOSITE = 4;
+  INDUSTRY_TYPE_INSULATION = 5;
+  INDUSTRY_TYPE_BOROSILICATE = 6;
 }
 
-// Possible segment values
+// Segment enumeration
 enum Segment {
   SEGMENT_UNSPECIFIED = 0;
   SEGMENT_ENDPORT = 1;
