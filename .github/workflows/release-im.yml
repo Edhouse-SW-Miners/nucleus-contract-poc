@@ -30,8 +30,17 @@ jobs:
             exit 1
           fi
 
+      - name: Generate a token for user with the possibility to bypass push restriction
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.EDBOTAPP_ID }}
+          private-key: ${{ secrets.EDBOTAPP_KEY }}
+
       - name: Checkout 'nucleus-contract' repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
